@@ -78,6 +78,10 @@ namespace MySqlDataBase
 
             SQL.Close();
 
+
+
+            Console.WriteLine("123456");
+
             Console.ReadKey();
 
         }

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common;
 
-namespace TCP_Server
+namespace GameServer.Servers
 {
     class Message
     {
@@ -38,9 +39,9 @@ namespace TCP_Server
         /// <summary>
         /// 解析数据(粘包问题)
         /// </summary>
-        public void ReadMessage()
+        public void ReadMessage(int newDataAmount, Action<RequestCode, ActionCode, string> ProcessDataCallBack)
         {
-
+            startIndex += newDataAmount;
             while (true)
             {
 
@@ -53,10 +54,16 @@ namespace TCP_Server
 
                 if ((startIndex - 4) >= count)
                 {
-                    string msg = Encoding.UTF8.GetString(data, 4, count);
+
+                    RequestCode requestCode = (RequestCode)BitConverter.ToInt32(data, 4);
+                    ActionCode actionCode = (ActionCode)BitConverter.ToInt32(data, 8);
+
+                    string msg = Encoding.UTF8.GetString(data, 12, count - 8);
                     Console.WriteLine("解析出来的数据：    " + msg);
-                    Array.Copy(data, count + 4, data, 0, startIndex - 4 - count);
+                    Array.Copy(data, count + 4, data, 0, startIndex - 12 - count);
                     startIndex -= (count + 4);
+
+                    ProcessDataCallBack(requestCode, actionCode, msg);
                 }
                 else
                 {
@@ -64,6 +71,9 @@ namespace TCP_Server
                 }
             }
         }
+
+
+
 
     }
 }
