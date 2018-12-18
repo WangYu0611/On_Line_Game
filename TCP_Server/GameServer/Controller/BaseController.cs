@@ -12,7 +12,7 @@ namespace GameServer.Controller
 
     abstract class BaseController
     {
-        RequestCode requestCode = RequestCode.None;
+      protected  RequestCode requestCode = RequestCode.None;
         public RequestCode RequestCode
         {
             get { return requestCode; }

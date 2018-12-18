@@ -11,7 +11,7 @@ namespace GameServer.Controller
 {
     class ControllerManager
     {
-        private Dictionary<RequestCode, BaseController> conttrollerDict = new Dictionary<RequestCode, BaseController>();
+        private Dictionary<RequestCode, BaseController> controllerDict = new Dictionary<RequestCode, BaseController>();
         private Server server;
 
         public ControllerManager(Server server)
@@ -26,8 +26,8 @@ namespace GameServer.Controller
         {
 
             DefaultController defaultController = new DefaultController();
-            conttrollerDict.Add(defaultController.RequestCode, defaultController);
-
+            controllerDict.Add(defaultController.RequestCode, defaultController);
+            controllerDict.Add(RequestCode.User, new UserController());
 
 
         }
@@ -37,7 +37,7 @@ namespace GameServer.Controller
         public void HandleRequest(RequestCode requestCode, ActionCode actionCode, string data, Client client, Server server)
         {
             BaseController controller;
-            bool isGet = conttrollerDict.TryGetValue(requestCode, out controller);
+            bool isGet = controllerDict.TryGetValue(requestCode, out controller);
             if (!isGet)
             {
                 Console.WriteLine("无法得到" + requestCode + "对应的Controller,无法处理请求！");
@@ -45,6 +45,7 @@ namespace GameServer.Controller
             }
 
             string methodName = Enum.GetName(typeof(ActionCode), actionCode);
+            Console.WriteLine(methodName);
             MethodInfo mi = controller.GetType().GetMethod(methodName);
             if (mi == null)
             {
@@ -52,13 +53,13 @@ namespace GameServer.Controller
                 return;
             }
 
-            object[] parameters = new object[] { data, client };
+            object[] parameters = new object[] { data, client, server };
             object obj = mi.Invoke(controller, parameters);
             if (obj == null || string.IsNullOrEmpty(obj as string))
             {
                 return;
             }
-            server.SendResponse(client, requestCode, obj as string);
+            server.SendResponse(client, actionCode, obj as string);
 
         }
     }

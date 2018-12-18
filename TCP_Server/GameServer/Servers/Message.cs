@@ -59,8 +59,9 @@ namespace GameServer.Servers
                     ActionCode actionCode = (ActionCode)BitConverter.ToInt32(data, 8);
 
                     string msg = Encoding.UTF8.GetString(data, 12, count - 8);
-                    Console.WriteLine("解析出来的数据：    " + msg);
-                    Array.Copy(data, count + 4, data, 0, startIndex - 12 - count);
+                    Console.WriteLine("解析出来的数据：" + msg);
+                    Console.WriteLine(count + "," + startIndex);
+                    Array.Copy(data, count + 4, data, 0, startIndex - 4 - count);
                     startIndex -= (count + 4);
 
                     ProcessDataCallBack(requestCode, actionCode, msg);
@@ -74,14 +75,14 @@ namespace GameServer.Servers
 
 
 
-        public static byte[] PackData(RequestCode requestCode, string data)
+        public static byte[] PackData(ActionCode actionCode, string data)
         {
-            byte[] requestCodeBytes = BitConverter.GetBytes((int)requestCode);
+            byte[] requestCodeBytes = BitConverter.GetBytes((int)actionCode);
             byte[] dataBytes = Encoding.UTF8.GetBytes(data);
             int dataAmount = requestCodeBytes.Length + dataBytes.Length;
             byte[] dataAmountBytes = BitConverter.GetBytes(dataAmount);
-             byte[] newByte= dataAmountBytes.Concat(requestCodeBytes).ToArray<byte>();//.Concat(dataBytes);
-             return   newByte.Concat(dataBytes).ToArray<byte>();
+            byte[] newByte = dataAmountBytes.Concat(requestCodeBytes).ToArray<byte>();//.Concat(dataBytes);
+            return newByte.Concat(dataBytes).ToArray<byte>();
 
         }
 

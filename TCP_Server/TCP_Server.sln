@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameServer", "GameServer\Ga
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{C8CA4AC5-7ED5-49ED-9432-F4FE55479273}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commont", "Commont\Commont.csproj", "{1A634685-B633-4750-AFA5-D770B19C7E0D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{C8CA4AC5-7ED5-49ED-9432-F4FE55479273}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8CA4AC5-7ED5-49ED-9432-F4FE55479273}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8CA4AC5-7ED5-49ED-9432-F4FE55479273}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A634685-B633-4750-AFA5-D770B19C7E0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A634685-B633-4750-AFA5-D770B19C7E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A634685-B633-4750-AFA5-D770B19C7E0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A634685-B633-4750-AFA5-D770B19C7E0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

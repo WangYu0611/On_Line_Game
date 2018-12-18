@@ -15,10 +15,13 @@ namespace GameServer.Servers
     {
         private Socket clientSocket;
         private Server server;
-        private Message msg;
+        private Message msg=new Message();
         private MySqlConnection mySqlConn;
 
-
+        public MySqlConnection MySqlConn
+        {
+            get { return mySqlConn; }
+        }
         public Client()
         {
 
@@ -71,9 +74,9 @@ namespace GameServer.Servers
             server.HandlerRequest(requestCode, actionCode, data, this, this.server);
         }
 
-        public void Send(RequestCode requestCode, string data)
+        public void Send(ActionCode actionCode, string data)
         {
-            byte[] bytes = Message.PackData(requestCode, data);
+            byte[] bytes = Message.PackData(actionCode, data);
             clientSocket.Send(bytes);
 
 

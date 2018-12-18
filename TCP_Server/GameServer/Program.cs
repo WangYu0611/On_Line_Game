@@ -11,7 +11,12 @@ namespace GameServer
     {
         static void Main(string[] args)
         {
-            Server server = new GameServer("127.0.0.1",8888);
+            Server server = new Server("127.0.0.1", 8888);
+            server.StartServer();
+
+
+
+            Console.ReadKey();
         }
     }
 }
