@@ -53,6 +53,7 @@ namespace GameServer.Servers
             Client client = new Client(clientSocket, this);
             client.StartClient();
             clientList.Add(client);
+            serverSocket.BeginAccept(AcceptCallBack, null);
         }
 
 
@@ -69,7 +70,7 @@ namespace GameServer.Servers
         public void SendResponse(Client client, ActionCode actionCode, string data)
         {
             client.Send(actionCode, data);
-            
+
         }
 
 

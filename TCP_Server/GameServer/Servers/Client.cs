@@ -15,7 +15,7 @@ namespace GameServer.Servers
     {
         private Socket clientSocket;
         private Server server;
-        private Message msg=new Message();
+        private Message msg = new Message();
         private MySqlConnection mySqlConn;
 
         public MySqlConnection MySqlConn
@@ -38,6 +38,10 @@ namespace GameServer.Servers
 
         public void StartClient()
         {
+            if (clientSocket == null || !clientSocket.Connected)
+            {
+                return;
+            }
             clientSocket.BeginReceive(msg.Data, msg.StartIndex, msg.RemainSize, SocketFlags.None, ReceiveCallBack, null);
         }
 

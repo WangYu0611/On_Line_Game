@@ -39,11 +39,27 @@ namespace GameServer.Controller
                 return ((int)ReturnCode.Success).ToString();
             }
 
-
-
-
         }
 
+        public string Reginster(string data, Client client, Server server)
+        {
+            string[] strs = data.Split(',');
+            string username = strs[0];
+            string password = strs[1];
 
+            bool res = userDAO.GetUserByUsername(client.MySqlConn, username);
+            if (res)
+            {
+                Console.WriteLine("用户名重复，添加新用户失败");
+                return ((int)ReturnCode.Fail).ToString();
+            }
+            else
+            {
+                int num = userDAO.AddUser(client.MySqlConn, username, password);
+                Console.WriteLine("增加" + num + "个新用户    账号： " + username + "    密码：" + password);
+                return ((int)ReturnCode.Success).ToString();
+            }
+
+        }
     }
 }
