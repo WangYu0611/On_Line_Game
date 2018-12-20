@@ -22,6 +22,7 @@ namespace GameServer.Controller
 
 
         private UserDAO userDAO = new UserDAO();
+        private ResultDAO resultDAO = new ResultDAO();
 
 
         public string Login(string data, Client client, Server server)
@@ -36,7 +37,11 @@ namespace GameServer.Controller
             else
             {
                 Console.WriteLine("账号：" + strs[0] + "    数据库返回成功");
-                return ((int)ReturnCode.Success).ToString();
+
+                Result result = resultDAO.GetResultByUseId(client.MySqlConn, user.Id);
+                return string.Format("{0},{1},{2},{3}", ((int)ReturnCode.Success).ToString(), user.Username, result.TotalCount, result.WinCount);
+
+
             }
 
         }

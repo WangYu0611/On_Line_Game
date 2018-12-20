@@ -9,7 +9,9 @@ namespace Common
     {
         None,
         Login,
-        Reginster
-
+        Reginster,
+        ListRoom,
+        CreateRoom,
+        JoinRoom
     }
 }
