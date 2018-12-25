@@ -80,5 +80,41 @@ namespace GameServer.Servers
             controllerManager.HandleRequest(requestCode, actionCode, data, client, server);
         }
 
+
+        public void CreateRoom(Client client)
+        {
+            Room room = new Room(this);
+            room.AddClientPlayer(client);
+            roomList.Add(room);
+        }
+
+
+        public void RemoveRoom(Room room)
+        {
+            if (roomList != null && room != null)
+            {
+                roomList.Remove(room);
+            }
+        }
+
+
+        public List<Room> GetRoomList()
+        {
+            return roomList;
+        }
+
+
+        public Room GetRoomByID(int id)
+        {
+            foreach (var item in roomList)
+            {
+                if (item.GetRoomID() == id)
+                {
+                    return item;
+                }
+
+            }
+            return null;
+        }
     }
 }

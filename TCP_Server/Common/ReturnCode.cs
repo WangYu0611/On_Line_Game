@@ -8,6 +8,6 @@ namespace Common
     {
         Success,
         Fail,
-
+        NotFound//没有找到或者以销毁
     }
 }

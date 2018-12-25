@@ -39,6 +39,7 @@ namespace GameServer.Controller
                 Console.WriteLine("账号：" + strs[0] + "    数据库返回成功");
 
                 Result result = resultDAO.GetResultByUseId(client.MySqlConn, user.Id);
+                client.SetUserData(user,result);
                 return string.Format("{0},{1},{2},{3}", ((int)ReturnCode.Success).ToString(), user.Username, result.TotalCount, result.WinCount);
 
 
